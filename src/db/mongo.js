@@ -39,3 +39,12 @@ export function GetReservations(db){
     });
   });
 };
+
+export function GetUserByID(db,userid){
+  return new Promise(function(resolve, reject) {
+    db.collection('users').find({ _id : userid}).toArray((erro,docs)=>{
+      if(err) reject(err);
+      else resolve(docs[0]);
+    });
+  });
+}
