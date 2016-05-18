@@ -24,8 +24,8 @@ export default async(rooms)=>{
       else if( diff >= 720 && isNowHour(20)){ // 12시간 이상 - 저녁 8시 알람
         console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - 디바이스가 12시간 이상 연결이 되지 않았습니다. ");
       }
-    }else{
-      console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - 디바이스가 서버에 연길이 되지 않았습니다. ");
+    }else if(isNowHour(9)){
+      console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - 디바이스가 서버에 연결이 되지 않았습니다. ");
     }
   }
 };
