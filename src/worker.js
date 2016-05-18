@@ -6,7 +6,7 @@ import colors from 'colors';
 export default async()=>{
   try{
     const now = new Date();
-    const date = + now.getFullYear() + "-" + now.getMonth()+ "-" + now.getDate() + " " + now.getHours()+":"+now.getMinutes();
+    const date = now.getFullYear() + "-" + now.getMonth()+ "-" + now.getDate() + " " + now.getHours()+":"+now.getMinutes();
     console.log(colors.white('Time : ' + date ));
     console.log(colors.green('WORKER ROUTINE START'));
 
