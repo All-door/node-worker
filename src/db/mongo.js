@@ -1,6 +1,7 @@
 import {MongoClient} from 'mongodb'
+import config from '../config/config';
 
-export function ConnectDB(url){
+function ConnectDB(url){
   return new Promise(function(resolve, reject) {
     MongoClient.connect(url, (err,db)=>{
       if(err) reject(err);
@@ -9,40 +10,48 @@ export function ConnectDB(url){
   });
 };
 
-export function CloseDB(db){
+function CloseDB(db){
   return db.close();
 };
 
-export function GetUsers(db){
+export async function GetUsers(){
+  let db = await ConnectDB(config.mongodb);
   return new Promise(function(resolve, reject) {
     db.collection('users').find().toArray((err,docs)=>{
+      CloseDB(db);
       if(err) reject(err);
       else resolve(docs);
     });
   });
 };
 
-export function GetRooms(db){
+export async function GetRooms(){
+  let db = await ConnectDB(config.mongodb);
   return new Promise(function(resolve, reject) {
     db.collection('rooms').find().toArray((err,docs)=>{
+      CloseDB(db);
       if(err) reject(err);
       else resolve(docs);
     });
   });
 };
 
-export function GetReservations(db){
+export async function GetReservations(){
+  let db = await ConnectDB(config.mongodb);
   return new Promise(function(resolve, reject) {
     db.collection('reservations').find().toArray((err,docs)=>{
+      CloseDB(db);
       if(err) reject(err);
       else resolve(docs);
     });
   });
 };
 
-export function GetUserByID(db,userid){
+export async function GetUserByID(userid){
+  let db = await ConnectDB(config.mongodb);
   return new Promise(function(resolve, reject) {
-    db.collection('users').find({ _id : userid}).toArray((erro,docs)=>{
+    db.collection('users').find({ _id : userid}).toArray((err,docs)=>{
+      CloseDB(db);
       if(err) reject(err);
       else resolve(docs[0]);
     });
