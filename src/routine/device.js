@@ -1,8 +1,12 @@
 import { GetDeviceInfoByRoom } from '../db/redis'
+import { GetUserByID, GetUsers } from '../db/mongo'
 
 export default async(rooms)=>{
   for(let i=0,len=rooms.length;i<len;i++){
     let status = await GetDeviceInfoByRoom(rooms[i]);
+    let user = await GetUserByID(rooms[i].user_id);
+    let phoneNumber = user.phoneNumber ? user.phoneNumber : null;
+
     if(isValidStatus(status)){
       status = JSON.parse(status);
 
@@ -10,22 +14,22 @@ export default async(rooms)=>{
       const diff = getDiffMinuteFromNow(updatedAt);
 
       if( diff >= 30 && diff < 60){ // 30분 이상
-        console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - 디바이스가 30분 이상 연결이 되지 않았습니다.");
+        console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - All-Door 디바이스가 30분 이상 연결이 되지 않았습니다. " + phoneNumber);
       }
       else if( diff >= 120 && diff < 150){ //2시간 이상
-        console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - 디바이스가 2시간 이상 연결이 되지 않았습니다.");
+        console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - All-Door 디바이스가 2시간 이상 연결이 되지 않았습니다. " + phoneNumber);
       }
       else if( diff >= 600 && diff < 630){ // 10시간 이상
-        console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - 디바이스가 10시간 이상 연결이 되지 않았습니다.");
+        console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - All-Door 디바이스가 10시간 이상 연결이 되지 않았습니다. " + phoneNumber);
       }
       else if( diff >= 720 && isNowHour(9)){ // 12 시간 이상 - 아침 9시 알람
-        console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - 디바이스가 12시간 이상 연결이 되지 않았습니다. ");
+        console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - All-Door 디바이스가 12시간 이상 연결이 되지 않았습니다. " + phoneNumber);
       }
       else if( diff >= 720 && isNowHour(20)){ // 12시간 이상 - 저녁 8시 알람
-        console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - 디바이스가 12시간 이상 연결이 되지 않았습니다. ");
+        console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - All-Door 디바이스가 12시간 이상 연결이 되지 않았습니다. " + phoneNumber);
       }
-    }else if(isNowHour(9)){
-      console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - 디바이스가 서버에 연결이 되지 않았습니다. ");
+    }else if(isNowHour(9) || isNowHour(20)){
+      console.log("[ " + rooms[i].title + " / " + rooms[i].device_id + " ] - All-Door 디바이스가 서버에 연결이 되지 않았습니다. " + phoneNumber);
     }
   }
 };
