@@ -10,9 +10,7 @@ export default async()=>{
     console.log(colors.white('Time : ' + date ));
     console.log(colors.green('WORKER ROUTINE START'));
 
-    const db = await ConnectDB(config.mongodb);
-    await DeviceRoutine(await GetRooms(db));
-    CloseDB(db);
+    await DeviceRoutine(await GetRooms());
 
     console.log(colors.green('WORKER ROUTINE END'));
     console.log();
