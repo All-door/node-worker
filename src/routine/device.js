@@ -1,5 +1,6 @@
 import { GetDeviceInfoByRoom } from '../db/redis'
 import { GetUserByID, GetUsers } from '../db/mongo'
+import SMS from '../util/sms'
 
 export default async(rooms)=>{
   for(let i=0,len=rooms.length;i<len;i++){
