@@ -6,10 +6,10 @@ export default function(){
 
 };
 
-export function sendSMS(sender,receivers,content){
+export function sendSMS(sender,receiver,content){
   const body = JSON.stringify({
     "sender" : sender,
-    "receivers" : receivers,
+    "receivers" : [receiver],
     "content" : content
   });
 
