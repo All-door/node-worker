@@ -7,6 +7,7 @@ export default {
 };
 
 export const SMS = {
+  "SENDER" : process.env.ALL_DOOR_SMS_SENDER || "SENDER",
   "APPID" : process.env.ALL_DOOR_SMS_APP_ID || "APIID",
   "APIKEY" : process.env.ALL_DOOR_SMS_API_KEY || "APIKEY"
 };
