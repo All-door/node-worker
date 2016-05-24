@@ -1,10 +1,12 @@
-{
+  {
   "name": "node-worker",
   "version": "1.0.0",
   "description": "all-door node-worker",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev" : "babel src --out-dir build && node build/main.js",
+    "prod" : "node build/main.js",
     "build": "babel src --out-dir build",
     "clean": "rm -rf ./build"
   },
