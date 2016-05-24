@@ -6,7 +6,7 @@ export default function(){
 
 };
 
-function sendSMS(sender,receivers,content){
+export function sendSMS(sender,receivers,content){
   const body = JSON.stringify({
     "sender" : sender,
     "receivers" : receivers,
@@ -25,7 +25,6 @@ function sendSMS(sender,receivers,content){
     method: 'POST'
   };
 
-  console.log(options);
   return new Promise((resolve, reject)=>{
     const req = https.request(options,(res)=>{
       let body = "";
