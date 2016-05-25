@@ -45,3 +45,6 @@ jspm_packages
 build
 /build
 /build/
+
+dump.rdb
+.DS_Store
