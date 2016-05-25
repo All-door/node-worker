@@ -2,7 +2,7 @@ import https from 'https'
 import {SMS as config} from '../config/config'
 const credential = 'Basic '+new Buffer(config.APPID+':'+config.APIKEY).toString('base64');
 
-export function sendSMS(sender,receiver,content){
+export function sendSMS(receiver,content){
   const body = JSON.stringify({
     "sender" : config.SENDER,
     "receivers" : [receiver],
